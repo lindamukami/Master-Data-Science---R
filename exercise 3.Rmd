@@ -2,7 +2,8 @@
 title: "Data Visualizations"
 output: html_notebook
 ---
-EXERCISE 3.6.1
+**EXERCISE 3.6.1**
+
 **What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?**
 ```{r}
 library(tidyverse)
