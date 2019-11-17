@@ -28,12 +28,16 @@ ggplot(data = mpg)+
   geom_area(mapping=aes(x=displ,y=hwy))
   
 ```
+
 **Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.**
+
 ```{r}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
   geom_point() + 
   geom_smooth(se = FALSE)
 ```
+
+
 **What does show.legend = FALSE do?**
 
 Removes a legend that is used to explain which levels correspond to which values.
