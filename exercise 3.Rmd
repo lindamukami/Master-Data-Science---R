@@ -35,11 +35,17 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
   geom_smooth(se = FALSE)
 ```
 **What does show.legend = FALSE do?**
-Removes a legend that explains which levels correspond to which values.
+
+Removes a legend that is used to explain which levels correspond to which values.
+
 **What happens if you remove it?** 
-You see the legend that explains which levels correspond to which values.
+
+You see the legend explaining what levels correspond to which values.
+
 **Why do you think I used it earlier in the chapter?**
-To show ho to remove legend
+
+To show how to remove a legend
+
 ```{r}
 ggplot(data = mpg) +
   geom_smooth(
@@ -47,7 +53,8 @@ ggplot(data = mpg) +
     show.legend = FALSE
   )
 ```
-**What does the se argument to geom_smooth() do?**
+**What does the se argument to geom_smooth() do**
+
 ```{r}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
   geom_point() + 
@@ -59,16 +66,22 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
   geom_smooth(se = TRUE)
 ```
 **ANSWER**
+
 se argument to geom_smooth()  does add a loess smooth
+
 **Will these two graphs look different? Why/why not?**
+
 ```{r}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
   geom_point() + 
   geom_smooth()
 ```
 **ANSWER**
-No the two graphs will not look different, because both functions produce the same output. The difference is that second function only does duplication in your code, which is not a good practice for obtaining clean code.
+
+No the two graphs will not look different, because both functions produce the same output. The difference is that second function only does duplication in your code, which is not good practice for obtaining clean code.
+
 **Recreate the R code necessary to generate the following graphs.**
+
 ```{r}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
   geom_point(mapping = aes(size=class),show.legend = FALSE) + 
