@@ -1,23 +1,123 @@
 ---
-title: "R Notebook"
+title: "Data Visualizations"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+**What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?**
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
 
 ```{r}
 library(tidyverse)
 ```
 
 ```{r}
+ggplot(data = mpg)+
+  geom_line(mapping=aes(x=displ,y=hwy))
+  
+```
+
+```{r}
+ggplot(data = mpg)+
+  geom_boxplot(mapping=aes(x=displ,y=hwy,color=drv))
+  
+```
+
+```{r}
+ggplot(data = mpg)+
+  geom_histogram()
+  
+```
+
+```{r}
+ggplot(data = mpg)+
+  geom_area(mapping=aes(x=displ,y=hwy))
+  
+```
+
+
+
+**Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.**
+
+```{r}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
   geom_point() + 
   geom_smooth(se = FALSE)
 ```
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+**What does show.legend = FALSE do?**
+Removes a legend that explains which levels correspond to which values.
+**What happens if you remove it?** 
+You see the legend that explains which levels correspond to which values.
+**Why do you think I used it earlier in the chapter?**
+To show ho to remove legend
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+    show.legend = FALSE
+  )
+```
+**What does the se argument to geom_smooth() do?**
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se = TRUE)
+```
+**ANSWER**
+se argument to geom_smooth()  does add a loess smooth
+
+**Will these two graphs look different? Why/why not?**
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth()
+```
+
+**ANSWER**
+No the two graphs will not look different, because both functions produce the same output. The difference is that second function only does duplication in your code, which is not a good practice for obtaining clean code.
+
+
+**Recreate the R code necessary to generate the following graphs.**
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(size=class),show.legend = FALSE) + 
+  geom_smooth(se=FALSE)
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(size=class),show.legend = FALSE) + 
+  geom_smooth(mapping = aes(group=drv),se=FALSE)
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color=drv,size=class),show.legend = TRUE) + 
+  geom_smooth(mapping = aes(color=drv),show.legend = TRUE,se=FALSE)
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color=drv,size=class),show.legend = TRUE) + 
+  geom_smooth(show.legend = FALSE,se=FALSE)
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color=drv,size=class),show.legend = TRUE) + 
+  geom_smooth(mapping = aes(linetype=drv),show.legend = TRUE,se=FALSE)
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy,size=class)) + 
+  geom_point(mapping = aes(color=drv),show.legend = TRUE) 
+ 
+```
+
