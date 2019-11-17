@@ -104,9 +104,9 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth(mapping = aes(group=drv),se=FALSE)
 ```
 ```{r}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color=drv,size=class),show.legend = TRUE) + 
-  geom_smooth(mapping = aes(color=drv),show.legend = TRUE,se=FALSE)
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy,color=drv)) + 
+  geom_point(mapping = aes(size=class),show.legend = TRUE) + 
+  geom_smooth(show.legend = TRUE,se=FALSE)
 ```
 ```{r}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
@@ -123,3 +123,98 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy,size=class)) +
   geom_point(mapping = aes(color=drv),show.legend = TRUE) 
  
 ```
+
+**EXERCISE 3.7.1**
+
+**What is the default geom associated with stat_summary()? How could you rewrite the previous plot to use that geom function instead of the stat function?**
+
+```{r}
+?stat_summary(geom = "pointrange")
+```
+**PREVIOUS PLOT**
+```{r}
+ggplot(data = diamonds) + 
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.ymin = min,
+    fun.ymax = max,
+    fun.y = median
+  )
+```
+
+**SOLUTION**
+
+```{r}
+ggplot(data = diamonds) +
+  geom_pointrange(mapping = aes(x = cut, y = depth),
+                  stat = "summary",
+                  fun.ymin = min,
+                  fun.ymax = max,
+                  fun.y = median)
+```
+```{r}
+?stat_summary()
+```
+
+**What does geom_col() do? How is it different to geom_bar()?**
+```{r}
+?geom_bar
+```
+**ANSWER**
+
+geom_bar() makes the height of the bar proportional to the number of cases in each group (or if the weight aesthetic is supplied, the sum of the weights). If you want the heights of the bars to represent values in the data, use geom_col() instead. geom_bar() uses stat_count() by default: it counts the number of cases at each x position. geom_col() uses stat_identity(): it leaves the data as is.
+
+**Most geoms and stats come in pairs that are almost always used in concert. Read through the documentation and make a list of all the pairs. What do they have in common?**
+```{r}
+?geom_bar
+```
+geom_bar(mapping = NULL, data = NULL, stat = "count",
+  position = "stack", ..., width = NULL, binwidth = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  
+stat_count(mapping = NULL, data = NULL, geom = "bar",
+  position = "stack", ..., width = NULL, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
+Both stat_count & geom_bar() understands the following aesthetics:  x, y, alpha, colour, fill, group, linetype & size.
+
+**What variables does stat_smooth() compute? What parameters control its behaviour?**
+```{r}
+?stat_smooth
+```
+
+y - predicted value
+
+ymin - lower pointwise confidence interval around the mean
+
+ymax - upper pointwise confidence interval around the mean
+
+se - standard error
+
+
+
+**In our proportion bar chart, we need to set group = 1. Why? In other words what is the problem with these two graphs?**
+
+THE PLOT IS WRONG: when you exclude the "group = 1" 
+
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = ..prop..))
+```
+
+THE PLOT IS WRONG when: you exclude the "group = 1" 
+
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = color, y = ..prop..))
+```
+
+
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = ..prop..,group=1))
+```
+**ANSWER**
+
+we need to set group="1" to override the default behavior, which here is to group by cut and in general is to group by the x variable.  For example, here, the default would be for geom_bar to return the number of rows with cut equal to "Fair", "Good", etc.
+
+
