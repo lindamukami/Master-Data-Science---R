@@ -2,6 +2,95 @@
 title: "Data Visualizations"
 output: html_notebook
 ---
+**EXERCISE 3.2.4**
+
+**Run ggplot(data = mpg). What do you see?**
+
+
+```{r}
+ggplot(data = mpg)
+```
+**ANSWER**
+
+empty graph
+
+**How many rows are in mpg? How many columns?**
+
+```{r}
+?mpg
+```
+**ANSWER**
+
+A data frame with 234 rows and 11 variables
+
+**What does the drv variable describe? Read the help for ?mpg to find out.**
+
+**ANSWER**
+
+f = front-wheel drive, r = rear wheel drive, 4 = 4wd
+
+
+**Make a scatterplot of hwy vs cyl**
+
+```{r}
+ggplot(data=mpg)+
+geom_point(mapping = aes(x=hwy, y=cyl))
+```
+**What happens if you make a scatterplot of class vs drv? Why is the plot not useful?**
+
+```{r}
+ggplot(data=mpg)+
+geom_point(mapping = aes(x=class, y=drv))
+```
+**ANSWER**
+
+The plot is not useful because varible class is categorical
+
+**3.3.1 Exercises**
+
+**What’s gone wrong with this code? Why are the points not blue?**
+
+**SOLUTION**
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+```
+**Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?**
+```{r}
+?mpg
+```
+
+**ANSWER**
+
+categorical - drv,class,fl,trans
+variables - model,displ,year,cyl,hwy
+
+**Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?**
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+  
+```
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+  
+```
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+  
+```
+**What happens if you map the same variable to multiple aesthetics?**
+
+
+**What does the stroke aesthetic do? What shapes does it work with? (Hint: use ?geom_point)**
+
+
+
 **EXERCISE 3.6.1**
 
 **What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?**
