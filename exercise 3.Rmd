@@ -442,6 +442,41 @@ The jitter geom is a convenient shortcut for geom_point(position = "jitter"). It
 
 
 
+**3.9.1 Exercises**
+
+
+**Turn a stacked bar chart into a pie chart using coord_polar().**
+
+
+
+**What does labs() do? Read the documentation.**
+```{r}
+?labs
+```
+Modify axis, legend, and plot labels
+
+**What’s the difference between coord_quickmap() and coord_map()?**
+
+```{r}
+?coord_quickmap
+```
+
+```{r}
+?coord_map
+```
+
+coord_map projects a portion of the earth, which is approximately spherical, onto a flat 2D plane using any projection defined by the mapproj package. Map projections do not, in general, preserve straight lines, so this requires considerable computation. coord_quickmap is a quick approximation that does preserve straight lines. It works best for smaller areas closer to the equator.
+
+
+
+**What does the plot below tell you about the relationship between city and highway mpg? Why is coord_fixed() important? What does geom_abline() do?**
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_point() + 
+  geom_abline() +
+  coord_fixed()
+```
 
 
 
