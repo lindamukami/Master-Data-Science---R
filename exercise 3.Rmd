@@ -394,4 +394,55 @@ ggplot(data = diamonds) +
 
 we need to set group="1" to override the default behavior, which here is to group by cut and in general is to group by the x variable.  For example, here, the default would be for geom_bar to return the number of rows with cut equal to "Fair", "Good", etc.
 
+**3.8.1 Exercises**
+
+
+**What is the problem with this plot? How could you improve it?**
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point()
+```
+Answer
+
+cty & hwy  are rounded so the points appear on a grid and many points overlap each other.
+
+**What parameters to geom_jitter() control the amount of jittering?**
+
+```{r}
+?geom_jitter
+```
+ANSWER
+
+Height & Weight
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_jitter(width = 0.5, height = 0.5)
+```
+
+**Compare and contrast geom_jitter() with geom_count().**
+
+```{r}
+?geom_count
+```
+
+This is a variant geom_point() that counts the number of observations at each location, then maps the count to point area. It useful when you have discrete data and overplotting.
+
+```{r}
+?geom_jitter
+```
+The jitter geom is a convenient shortcut for geom_point(position = "jitter"). It adds a small amount of random variation to the location of each point, and is a useful way of handling overplotting caused by discreteness in smaller datasets.
+
+**What’s the default position adjustment for geom_boxplot()? Create a visualisation of the mpg dataset that demonstrates it.**
+
+
+```{r}
+?geom_boxplot
+```
+
+
+
+
+
+
 
