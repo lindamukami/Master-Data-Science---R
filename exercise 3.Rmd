@@ -557,18 +557,20 @@ you can get the same place using the Tools menu then choosing the keyboard short
 
 
 
+```{r}
+library(nycflights13)
+```
+
+```{r}
+flights
+```
 
 
+```{r}
+(jan1 <- filter(flights, month == 1, day == 1))
+```
 
-
-
-
-
-
-
-
-
-
-
-
+```{r}
+filter(flights, month == 12 | month == 11)
+```
 
