@@ -5,20 +5,59 @@ date: "11/24/2019"
 output: html_document
 ---
 
-```{r}
-seq(1,10)
-```
+
+**4.4 Practice**
+
+**Why does this code not work?**
 
 ```{r}
-x <- "hello world"
-x
-```
-```{r}
-y <- seq(1, 10, length.out = 5)
-y
-```
-```{r}
-(y <- seq(1, 10, length.out = 5))
+my_variable <- 10
+my_varlable
 ```
 
-4.4 Practice
+**Look carefully! (This may seem like an exercise in pointlessness, but training your brain to notice even the tiniest difference will pay off when programming.)**
+
+object called in the second line does not match the object name
+
+
+**Tweak each of the following R commands so that they run correctly:**
+
+```{r}
+library(tidyverse)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+
+fliter(mpg, cyl = 8)
+filter(diamond, carat > 3)
+```
+
+
+
+**Press Alt + Shift + K. What happens? How can you get to the same place using the menus?**
+
+
+```{r}
+
+```
+
+keyboard shortcut reference menu apppears
+
+you can get the same place using the Tools menu then choosing the keyboard shortcut help.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
