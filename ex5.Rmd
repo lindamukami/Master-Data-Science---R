@@ -9,3 +9,23 @@ library(nycflights13)
 library(tidyverse)
 ```
 
+
+```{r}
+nycflights13::flights
+```
+
+```{r}
+View(nycflights13::flights)
+```
+
+
+
+
+
+
+
+
+
+
+
+
