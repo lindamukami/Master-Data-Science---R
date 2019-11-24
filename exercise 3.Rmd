@@ -73,8 +73,8 @@ str(mpg)
 
 **ANSWER**
 
-categorical - drv,class,fl,trans,manufacturer,model,trans,year
-variables - model,displ,cyl,hwy,year,cty,
+categorical - drv,class,fl,trans,manufacturer,model,trans
+Continous - model,displ,cyl,hwy,year,cty
 
 **Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?**
 
