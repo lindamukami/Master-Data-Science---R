@@ -2,7 +2,12 @@
 title: "Data Visualizations"
 output: html_notebook
 ---
+
 **EXERCISE 3.2.4**
+
+```{r}
+library(tidyverse)
+```
 
 **Run ggplot(data = mpg). What do you see?**
 
@@ -19,6 +24,7 @@ empty graph
 ```{r}
 ?mpg
 ```
+
 **ANSWER**
 
 A data frame with 234 rows and 11 variables
@@ -46,7 +52,7 @@ geom_point(mapping = aes(x=class, y=drv))
 
 The plot is not useful because varible class is categorical
 
-**3.3.1 Exercises**
+**3.3.1 EXERCISES**
 
 **What’s gone wrong with this code? Why are the points not blue?**
 
@@ -56,17 +62,19 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
 ```
 **Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?**
+
 ```{r}
 ?mpg
 ```
 
 ```{r}
-View(mpg)
+str(mpg)
 ```
+
 **ANSWER**
 
 categorical - drv,class,fl,trans,manufacturer,model,trans,year
-variables - model,displ,cyl,hwy
+variables - model,displ,cyl,hwy,year,cty,
 
 **Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?**
 
@@ -87,6 +95,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, shape = cty))
   
 ```
+
 **What happens if you map the same variable to multiple aesthetics?**
 
 
@@ -113,9 +122,11 @@ ggplot(data=mpg)+
   geom_point(mapping=aes(x = displ, y = hwy, color=displ<5))
 ```
 
-**3.5.1 Exercises**
+**3.5.1 EXERCISE**
 
 **What happens if you facet on a continuous variable?**
+
+facet_wrap() will work with continous variable but not as useful as working with categorical variable.
 
 ```{r}
 ggplot(data=mpg)+
@@ -124,6 +135,7 @@ ggplot(data=mpg)+
 ```
 
 **What do the empty cells in plot with facet_grid(drv ~ cyl) mean? How do they relate to this plot?**
+
 No combination of data points
 
 ```{r}
@@ -148,7 +160,11 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy)) +
   facet_grid(. ~ cyl)
 ```
-  
+ conclusion 
+ 
+rows are facetted by the variable on the left hand side of ~. and columns are facetted by the variable on the right hand side of .~ 
+
+
   **Take the first faceted plot in this section:**
   
 ```{r}  
@@ -158,9 +174,12 @@ ggplot(data = mpg) +
 ```  
   
 **What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?**
-useful for categorical variables,to split your plot into facets, subplots that each display one subset of the data making focus on particular facets alone.in contrast colour aesthetic uses a single type of colour and no focus on particular aesthetic
 
 
+Advantages of using faceting is that it is useful for categorical variables,to split your plot into facets, subplots that each display one subset of the data making focus on particular facets alone.
+in contrast colour aesthetic having display of multiple colors with increase in categorical features can cause confusion.
+
+Disadvantage of using faceting is that since the points are on separate plots direct comparison may not be direct
 
 
 **Read ?facet_wrap. What does nrow do? What does ncol do? What other options control the layout of the individual panels? Why doesn’t facet_grid() have nrow and ncol arguments?**
@@ -173,7 +192,7 @@ Number of rows and columns.
 **When using facet_grid() you should usually put the variable with more unique levels in the columns. Why?**
 
 
-
+One logical reason is that since the dependent variables are usually plotted on the y-axis, it is much easier to compare the highs and lows and the trends of the variables if the plots are placed side by side.
 
 
 
@@ -182,9 +201,7 @@ Number of rows and columns.
 **EXERCISE 3.6.1**
 
 **What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?**
-```{r}
-library(tidyverse)
-```
+
 ```{r}
 ggplot(data = mpg)+
   geom_line(mapping=aes(x=displ,y=hwy))
@@ -437,7 +454,9 @@ The jitter geom is a convenient shortcut for geom_point(position = "jitter"). It
 
 
 ```{r}
-?geom_boxplot
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(y = displ, x = drv, color = factor(year)))
+
 ```
 
 
@@ -446,8 +465,11 @@ The jitter geom is a convenient shortcut for geom_point(position = "jitter"). It
 
 
 **Turn a stacked bar chart into a pie chart using coord_polar().**
-
-
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity)) +
+  coord_polar()
+```
 
 **What does labs() do? Read the documentation.**
 ```{r}
@@ -478,6 +500,15 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   coord_fixed()
 ```
 
+The plot shows us that there is a positive linear trend between hwy and cty, and the slope is approximately close 1, meaning that a unit increase in cty is associated with a unit increase in hwy.
 
+```{r}
+?coord_fixed()
+```
+coord_fixed forces a specified aspect ratio between the physical representation of the units on the axes. The ratio is 1 by default. It is important to fix the aspect ratio in this case because hwy and cty are measured in the same unit (miles per gallon). Any other aspect ratios will give a visually incorrect representation and might lead us to believe that one increasese at a faster rate than the other.
+```{r}
+?geom_abline()
+```
+geom_abline() adds a diagonal reference line to the plot, thus allows us
 
 
